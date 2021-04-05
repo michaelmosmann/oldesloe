@@ -1,0 +1,33 @@
+[site]
+    title = "Bad Oldesloe"
+    locale = "de-de"
+
+[sources]
+
+[sources.shops]
+    paths = [
+    	"shops/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})--(?<name>[^.]+).md",
+    	"shops/(?<name>[^.]+).md"
+    ]
+
+# TODO filter/group documents into new document sets
+
+[template]
+    path = "templates"
+
+[template.static]
+    paths = "static/(css|js|img)/.*"
+
+[pages]
+    templatePath = "templates"
+    
+[pages.shop]
+    path = "/:name/"
+    #pageSize = null -> unique page -> collisions should give errors
+    documents = "shops"
+
+[pages.all]
+    path = "/:page/"
+    pageSize = 10
+    orderBy = ["name"]
+    #documents = [] -> ALL
