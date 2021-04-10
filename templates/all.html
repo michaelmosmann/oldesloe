@@ -1,5 +1,8 @@
-Übersicht
+{% extends "parts/_page" %}
 
 {% block content %}
-	{{ it.documents }}
+	{% for doc in it.documents %}
+		<h2>{{ doc.title | single }}</h2>
+		{{ doc }}
+	{% endfor %}
 {% endblock %}

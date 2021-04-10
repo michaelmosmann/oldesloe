@@ -1,5 +1,9 @@
 {% extends "parts/_page" %}
+{% import "parts/_shops" %}
 
 {% block content %}
-	{{ it.documents }}
+	{% set doc = it.documents | single %}
+	<h1>{{ doc.title | single }}</h1>
+	{{ clickAndCollect(doc) }}
+	{{ doc }}
 {% endblock %}
