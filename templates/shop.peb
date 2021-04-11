@@ -10,9 +10,8 @@
 	{{ clickAndCollect(doc) }}
     {{ clickAndMeet(doc) }}
 
-    {% set pathToAll = doc.pathToPage('all') %}
+    {% set pathToAll = doc.pathTo('all') %}
     {% if pathToAll is not null %}
-        <a href="{{ it.baseUrl }}{{ pathToAll }}">Zurück</a>
+        <a href="{{ it.baseUrl }}{{ pathToAll.path }}">Zurück ({{ pathToAll.page | default('-') }})</a>
     {%endif %}
-
 {% endblock %}

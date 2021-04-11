@@ -1,14 +1,18 @@
 {% extends "parts/_page" %}
 {% import "parts/_shops" %}
+{% import "parts/_paging" %}
 
 {% block content %}
     {% for doc in it.documents %}
     <h2>{{ doc.name | single }}</h2>
     {{ onlineShopLink(doc) }}
     {{ doc }}
-    {% set pathToShopPage = doc.pathToPage('shop') %}
-    {% if pathToShopPage is not null %}
-        <a href="{{ it.baseUrl }}{{ pathToShopPage }}">Details</a>
+    {% set pathTo = doc.pathTo('shop') %}
+    {% if pathTo is not null %}
+        <a href="{{ it.baseUrl }}{{ pathTo.path }}">Details ({{ pathTo.page | default("-") }})</a>
     {%endif %}
     {% endfor %}
+
+    {% set paging = it.paging %}
+    {{ pageNavigation(it.baseUrl, paging) }}
 {% endblock %}

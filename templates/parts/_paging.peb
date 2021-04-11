@@ -1,0 +1,27 @@
+{% macro pageNavigation(baseUrl, paging) %}
+    {% if paging is not null %}
+        <hr>
+        {% if paging.isFirst %}
+            &lt;&lt;
+        {% else %}
+            <a href="{{ baseUrl }}{{ paging.first.path }}">&lt;&lt;</a>
+        {% endif %}
+
+        {% if paging.prev is not null %}
+            <a href="{{ baseUrl }}{{ paging.prev.path }}">&lt;</a>
+        {% endif %}
+
+        {{ paging.current.index }}
+
+        {% if paging.next is not null %}
+            <a href="{{ baseUrl }}{{ paging.next.path }}">&gt;</a>
+        {% endif %}
+
+        {% if paging.isLast %}
+            &gt;&gt;
+        {% else %}
+            <a href="{{ baseUrl }}{{ paging.last.path }}">&gt;&gt;</a>
+        {% endif %}
+
+    {% endif %}
+{% endmacro %}
