@@ -1,0 +1,65 @@
+{% macro _zeiten(tage) %}
+    {% set alleTage = ["Mo","Di","Mi","Do","Fr","Sa","So"] %}
+    <ul>
+    {% for tag in alleTage %}
+        {% set entry = tage | keyContains('Tag',tag) | singleOrNull  %}
+        {% if entry is not null %}
+        <li>
+            {{ tag }}: {{entry.Von | default('-')}} - {{entry.Bis | default('-')}}
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+
+{% macro clickAndCollect(it) %}
+    {% set click_and_collect = it.click_and_collect | default(null) %}
+    {% if click_and_collect is not null %}
+        <h2>Click & Collect</h2>
+        {{ _zeiten(click_and_collect) }}
+
+        {% set web = click_and_collect | allWithKey('Url') | singleOrNull %}
+        {% if web is not null %}
+            <a href="{{ web.Url }}">{{ web.Url }}</a>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro clickAndMeet(it) %}
+    {% set click_and_meet = it.click_and_meet | default(null) %}
+    {% if click_and_meet is not null %}
+        <h2>Click & Meet</h2>
+        {{ _zeiten(click_and_meet) }}
+
+        {% set termine = click_and_meet | allWithKey('Termine') | singleOrNull %}
+        {% if termine is not null %}
+            {% set termin_anfragen = termine.Termine | singleOrNull | mapAsList %}
+            {% if termin_anfragen is not null %}
+                Terminanfragen:
+                <ul>
+                {% for termin_anfrage in termin_anfragen %}
+                    <li>
+                    {{ termin_anfrage.first }}: {{ termin_anfrage.second }}
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro googleMapsLink(it) %}
+    {% set name = it.name | single %}
+    {% set googleMapsKey = it.google_maps | default(null) | singleOrNull %}
+    {% if googleMapsKey is not null %}
+        <a href="https://goo.gl/maps/{{ googleMapsKey}}" target="_blank">{{name}} bei Google Maps</a>
+    {% endif %}
+{% endmacro %}
+
+{% macro onlineShopLink(it) %}
+    {% set online_shop_url = it.online_shop | default(null) | singleOrNull %}
+    {% if online_shop_url is not null %}
+        <a href="{{ online_shop_url }}" target="_blank">Online Shop</a>
+    {% endif %}
+{% endmacro %}

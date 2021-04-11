@@ -1,4 +1,7 @@
 ---
+name: Tchibo
+
+
 title: Tchibo
 type: shop
 tags:

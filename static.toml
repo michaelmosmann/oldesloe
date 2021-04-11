@@ -6,8 +6,8 @@
 
 [sources.shops]
     paths = [
-    	"shops/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})--(?<name>[^.]+).md",
-    	"shops/(?<name>[^.]+).md"
+    	"shops/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})--(?<urlName>[^.]+).md",
+    	"shops/(?<urlName>[^.]+).md"
     ]
 
 # TODO filter/group documents into new document sets
@@ -22,12 +22,12 @@
     templatePath = "templates"
     
 [pages.shop]
-    path = "/:name/"
+    path = "/:urlName/"
     #pageSize = null -> unique page -> collisions should give errors
     documents = "shops"
 
 [pages.all]
     path = "/:page/"
-    pageSize = 10
-    orderBy = ["name"]
+    pageSize = 2
+    orderBy = ["urlName"]
     #documents = [] -> ALL

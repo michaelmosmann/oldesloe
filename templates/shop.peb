@@ -1,0 +1,18 @@
+{% extends "parts/_page" %}
+{% import "parts/_shops" %}
+
+{% block content %}
+	{% set doc = it.documents | single %}
+	<h1>{{ doc.title | single }}</h1>
+
+	{{ onlineShopLink(doc) }}
+    {{ googleMapsLink(doc) }}
+	{{ clickAndCollect(doc) }}
+    {{ clickAndMeet(doc) }}
+
+    {% set pathToAll = doc.pathToPage('all') %}
+    {% if pathToAll is not null %}
+        <a href="{{ it.baseUrl }}{{ pathToAll }}">Zurück</a>
+    {%endif %}
+
+{% endblock %}
